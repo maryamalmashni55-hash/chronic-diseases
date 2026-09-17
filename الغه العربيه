@@ -1,0 +1,57 @@
+ الاسم: نشر رد الفعل على صفحات GitHub
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+ الاسم: إعداد العقدة 
+ الاستخدامات: الإجراءات/الإعداد-node@v4 
+ مع: 
+ عقدة الإصدار: 20. 
+ ذاكرة التخزين المؤقت: NPM. 
+
+ - الاسم: تثبيت التبعيات 
+ تشغيل: NPM CI. 
+
+ الاسم: Build 
+ تشغيل: نم تشغيل بناء. 
+
+ - الاسم: إعداد الصفحات 
+ الاستخدامات: الإجراءات/التكوين-الصفحات@v5 
+
+ - الاسم: تحميل الموقع 
+ الاستخدامات: الإجراءات / التحميل-الصفحات-القطعة الأثرية@v3 
+ مع: 
+ المسار: ./dist 
+
+ نشر: 
+ الاحتياجات: بناء. 
+ تشغيل على: أوبونتو-الأحدث. 
+
+ البيئة: 
+ الاسم: Github-Pageps 
+ URL: ${{ steps.deployment.outputs.page_url }} 
+
+ الخطوات: 
+ الاسم: نشر 
+ ID: النشر. 
+ الاستخدامات: الإجراءات/نشر الصفحات@v4 
